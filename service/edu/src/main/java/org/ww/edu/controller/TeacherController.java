@@ -2,10 +2,8 @@ package org.ww.edu.controller;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
-import org.springframework.web.bind.annotation.RestController;
 import org.ww.edu.bean.Teacher;
 import org.ww.edu.service.TeacherService;
 
@@ -27,11 +25,19 @@ public class TeacherController {
     @Autowired
     private TeacherService teacherService;
 
+    //1 查询所有讲师信息
     @GetMapping("/findAll")
     public List<Teacher> findAllTeacher(){
         List<Teacher> teacherList = teacherService.list(null);
 
         return teacherList;
+    }
+
+    //2 逻辑删除讲师信息
+    @DeleteMapping("{id}")
+    public boolean deleteTeacherById(@PathVariable String id){
+        boolean flag = teacherService.removeById(id);
+        return flag;
     }
 }
 
